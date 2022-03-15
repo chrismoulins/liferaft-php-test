@@ -25,6 +25,12 @@ class ContactSubmitRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'houseNumber' => 'required|integer',
+            'streetName' => 'required|string',
+            'city' => 'required|string',
+            'country' => 'required|string',
         ];
     }
 
