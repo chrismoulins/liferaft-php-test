@@ -1,40 +1,195 @@
-import { Controller } from "react-hook-form"
-import { Autocomplete, TextField } from "@mui/material";
+const provinces = [
+    {label: 'Alberta'},
+    {label: 'British Columbia'},
+    {label: 'Manitoba'},
+    {label: 'New Brunswick'},
+    {label: 'Newfoundland and Labrador'},
+    {label: 'Nova Scotia'},
+    {label: 'Ontario'},
+    {label: 'Prince Edward Island'},
+    {label: 'Quebec'},
+    {label: 'Saskatchewan'},
+]
 
-const CountrySelect = ({name, control, label}) => {
-    return (
-        <Controller
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <Autocomplete
-                    fullWidth
-                    options={countries}
-                    autoHighlight
-                    getOptionLabel={(option) => option.label}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            value={value}
-                            error={!!error} helperText={error ? error.message : null}
-                            label={label}
-                            inputProps={{
-                                ...params.inputProps,
-                                autoComplete: 'auto',
-                            }}
-                        />
-                    )}
-                    onChange={(_, data) => {
-                        onChange(data.label)
-                        return data.label;
-                    }}
-                />
-            )}
-            name={name}
-            control={control}
-        />
-    )
-}
-
-export default CountrySelect
+const states = [
+    {
+        label: "Alabama",
+    },
+    {
+        label: "Alaska",
+    },
+    {
+        label: "American Samoa",
+    },
+    {
+        label: "Arizona",
+    },
+    {
+        label: "Arkansas",
+    },
+    {
+        label: "California",
+    },
+    {
+        label: "Colorado",
+    },
+    {
+        label: "Connecticut",
+    },
+    {
+        label: "Delaware",
+    },
+    {
+        label: "District Of Columbia",
+    },
+    {
+        label: "Federated States Of Micronesia",
+    },
+    {
+        label: "Florida",
+    },
+    {
+        label: "Georgia",
+    },
+    {
+        label: "Guam",
+    },
+    {
+        label: "Hawaii",
+    },
+    {
+        label: "Idaho",
+    },
+    {
+        label: "Illinois",
+    },
+    {
+        label: "Indiana",
+    },
+    {
+        label: "Iowa",
+    },
+    {
+        label: "Kansas",
+    },
+    {
+        label: "Kentucky",
+    },
+    {
+        label: "Louisiana",
+    },
+    {
+        label: "Maine",
+    },
+    {
+        label: "Marshall Islands",
+    },
+    {
+        label: "Maryland",
+    },
+    {
+        label: "Massachusetts",
+    },
+    {
+        label: "Michigan",
+    },
+    {
+        label: "Minnesota",
+    },
+    {
+        label: "Mississippi",
+    },
+    {
+        label: "Missouri",
+    },
+    {
+        label: "Montana",
+    },
+    {
+        label: "Nebraska",
+    },
+    {
+        label: "Nevada",
+    },
+    {
+        label: "New Hampshire",
+    },
+    {
+        label: "New Jersey",
+    },
+    {
+        label: "New Mexico",
+    },
+    {
+        label: "New York",
+    },
+    {
+        label: "North Carolina",
+    },
+    {
+        label: "North Dakota",
+    },
+    {
+        label: "Northern Mariana Islands",
+    },
+    {
+        label: "Ohio",
+    },
+    {
+        label: "Oklahoma",
+    },
+    {
+        label: "Oregon",
+    },
+    {
+        label: "Palau",
+    },
+    {
+        label: "Pennsylvania",
+    },
+    {
+        label: "Puerto Rico",
+    },
+    {
+        label: "Rhode Island",
+    },
+    {
+        label: "South Carolina",
+    },
+    {
+        label: "South Dakota",
+    },
+    {
+        label: "Tennessee",
+    },
+    {
+        label: "Texas",
+    },
+    {
+        label: "Utah",
+    },
+    {
+        label: "Vermont",
+    },
+    {
+        label: "Virgin Islands",
+    },
+    {
+        label: "Virginia",
+    },
+    {
+        label: "Washington",
+    },
+    {
+        label: "West Virginia",
+    },
+    {
+        label: "Wisconsin",
+    },
+    {
+        label: "Wyoming",
+    }
+]
 
 // From https://bitbucket.org/atlassian/atlaskit-mk-2/raw/4ad0e56649c3e6c973e226b7efaeb28cb240ccb0/packages/core/select/src/data/countries.js
 const countries = [
@@ -364,7 +519,7 @@ const countries = [
     { code: 'SM', label: 'San Marino', phone: '378' },
     { code: 'SN', label: 'Senegal', phone: '221' },
     { code: 'SO', label: 'Somalia', phone: '252' },
-    { code: 'SR', label: 'Suriname', phone: '597' },
+    { code: 'SR', label: 'Surilabel', phone: '597' },
     { code: 'SS', label: 'South Sudan', phone: '211' },
     {
       code: 'ST',
@@ -460,4 +615,6 @@ const countries = [
     { code: 'ZA', label: 'South Africa', phone: '27' },
     { code: 'ZM', label: 'Zambia', phone: '260' },
     { code: 'ZW', label: 'Zimbabwe', phone: '263' },
-  ];
+]
+
+export {provinces, states, countries}

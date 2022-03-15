@@ -1,15 +1,18 @@
+import React, { useState } from 'react';
 import { Container, Stack, Button } from "@mui/material"
 import axios from 'axios'
-import React, { useState } from 'react';
-import { useForm, Controller } from "react-hook-form"
-import TextInput from "./form-components/TextInput"
-// import StateProvinceSelect from "./form-components/StateProvinceSelect"
-import CountrySelect from "./form-components/CountrySelect"
-import Header from './Header'
+
 import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useForm } from "react-hook-form"
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from "yup"
-import 'react-toastify/dist/ReactToastify.css'
+
+import TextInput from "./form-components/TextInput"
+import SelectSearch from "./form-components/SelectSearch"
+import Header from './Header'
+
+import {provinces, states, countries} from '../content/ContactFormData'
 
 const validationSchema = yup.object({
     name: yup.string().required('Name is required'),
@@ -18,7 +21,8 @@ const validationSchema = yup.object({
     houseNumber: yup.number().typeError('House Number must be a number').positive().integer().required('House Number is required'),
     streetName: yup.string().required('Street Name is required'),
     city: yup.string().required('City is required'),
-    country: yup.string().required('Country is required')
+    country: yup.string().required('Country is required'),
+    stateProvince: yup.string().required('State/Province is required')
   }).required()
 
 const Form = () => {
@@ -27,9 +31,10 @@ const Form = () => {
 
     const toastError = (data) => toast.error("Submit Failed")
 
-    const [countrySelected, setCountrySelected] = useState('');
+    const [countryHasStates, setCountryHasStates] = useState(false);
+    const [countryHasProvinces, setCountryHasProvinces] = useState(false);
 
-    const { control, handleSubmit, formState:{ errors } } = useForm({
+    const { control, unregister, handleSubmit, formState:{ errors } } = useForm({
         defaultValues: {
             name: '',
             email: '',
@@ -37,19 +42,30 @@ const Form = () => {
             houseNumber: '',
             streetName: '',
             city: '',
-            country: ''
+            country: '',
+            stateProvince: ''
         },
         resolver: yupResolver(validationSchema)
     })
 
     const onSubmit = (data) => {
-        axios.post('/contact/submit', data)
+        axios.post('/contact/submit',
+            {
+                "name": data.name,
+                "email": data.email,
+                "phoneNumber": data.phone,
+                "address": {
+                    "houseNumber": data.houseNumber,
+                    "streetName": data.streetName,
+                    "city": data.city,
+                    "stateProvince": data.stateProvince,
+                    "country": data.country
+                }
+            })
             .then(function (response) {
-                debugger
                 if (response.data.success) { toastSuccess() }
             })
             .catch(function (error) {
-                debugger
                 if (error.response.data.success) { toastError() }
             })
     }
@@ -89,17 +105,51 @@ const Form = () => {
                         control={control}
                         label={"City"}
                     />
-                    <CountrySelect 
+                    <SelectSearch 
                         name={"country"}
                         control={control}
                         label={"Country"}
-                        onChange={(e) => setValue(e.target.value)}
+                        options={countries}
+                        onSelectChange={(value) => {
+                            switch(value) {
+                                case 'United States':
+                                    setCountryHasStates(true)
+                                    setCountryHasProvinces(false)
+                                    break
+                                case 'Canada':
+                                    setCountryHasStates(false)
+                                    setCountryHasProvinces(true)
+                                    break
+                                default:
+                                    setCountryHasStates(false)
+                                    setCountryHasProvinces(false)
+                                    break
+                            }
+                        }}
                     />
-                    {/* <StateProvinceSelect 
-                        name={"country"}
-                        control={control}
-                        label={"Country"}
-                    /> */}
+                    {
+                        countryHasStates ? (
+                            <SelectSearch 
+                                name={"stateProvince"}
+                                control={control}
+                                label={"State"}
+                                options={states}
+                            />
+                        ) : countryHasProvinces ? (
+                            <SelectSearch 
+                                name={"stateProvince"}
+                                control={control}
+                                label={"Province"}
+                                options={provinces}
+                            />
+                        ) : (
+                            <TextInput 
+                                name={"stateProvince"}
+                                control={control}
+                                label={"Province/State"}
+                            />
+                        )
+                    }
                     <Button variant="contained" color="primary" onClick={handleSubmit(onSubmit)}>Submit</Button>
                 </Stack>
             </form>
