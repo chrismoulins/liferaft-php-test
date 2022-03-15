@@ -28602,7 +28602,7 @@ var Form = function Form() {
     resolver: (0,_hookform_resolvers_yup__WEBPACK_IMPORTED_MODULE_5__.yupResolver)(validationSchema)
   }),
       control = _useForm.control,
-      unregister = _useForm.unregister,
+      resetField = _useForm.resetField,
       handleSubmit = _useForm.handleSubmit,
       errors = _useForm.formState.errors;
 
@@ -28664,6 +28664,8 @@ var Form = function Form() {
           label: "Country",
           options: _content_ContactFormData__WEBPACK_IMPORTED_MODULE_10__.countries,
           onSelectChange: function onSelectChange(value) {
+            resetField('stateProvince');
+
             switch (value) {
               case 'United States':
                 setCountryHasStates(true);

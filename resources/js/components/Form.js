@@ -34,7 +34,7 @@ const Form = () => {
     const [countryHasStates, setCountryHasStates] = useState(false);
     const [countryHasProvinces, setCountryHasProvinces] = useState(false);
 
-    const { control, unregister, handleSubmit, formState:{ errors } } = useForm({
+    const { control, resetField, handleSubmit, formState:{ errors } } = useForm({
         defaultValues: {
             name: '',
             email: '',
@@ -111,6 +111,7 @@ const Form = () => {
                         label={"Country"}
                         options={countries}
                         onSelectChange={(value) => {
+                            resetField('stateProvince')
                             switch(value) {
                                 case 'United States':
                                     setCountryHasStates(true)
