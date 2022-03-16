@@ -14,7 +14,7 @@ class ContactController extends Controller
      */
     public function submit(ContactSubmitRequest $request)
     {
-        append_to_json_file('customers.txt', $request->all());
+        appendToJsonFile('customers.txt', $request->all());
         return response()->json(['success' => 'true']);
     }
 }
