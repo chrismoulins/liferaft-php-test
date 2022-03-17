@@ -9,10 +9,3 @@ services:
             - .:/app
         ports:
             - 8000:8000
-    npm:
-      image: node:current-alpine
-      environment:
-        - NODE_OPTIONS=--openssl-legacy-provider
-      volumes:
-        - .:/var/www/html
-      entrypoint: ['npm']

@@ -1,64 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# LifeRaft Code Test
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Code Test Submission for: Chris Moulins (chrismoulins@gmail.com)
 
-## About Laravel
+## Getting started
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+After cloning the repo. You will be required to run the following commands:
+```
+composer install
+```
+```
+npm install
+```
+```
+cp .env.example .env
+```
+```
+php artisan key:generate
+```
+```
+docker-compose up
+```
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Disclosure
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+I realize that this isn't taking full advantage of a containerized environment.
+I attempted to use the repo provided at `https://gitlab.com/steve.day/liferaft-php-code-test` but ran into a lot of issues. It did not work out of the box for me.
+I was able to get the front-end to listen on http://localhost:3001 and the API server to listen on
+http://localhost:8000, but ran into CORS issues beyond that.
 
-## Learning Laravel
+I attempted to adjust the Allow-Access-Control-Origin, I attempted to set a proxy in package.json, and I even tried the following package: `https://www.npmjs.com/package/http-proxy-middleware` but nothing seemed to work for me.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+I unfortunately haven't been exposed to using docker outside of some very introductory knowledge transfer a number of years ago. Given more time (time I plan to take on my own to complete this challenge) I know I can get it working.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Accessing customers.txt
+To access the `customers.txt` file in the container, here are a few options:
 
-## Laravel Sponsors
+### Option 1
+Fetch container ID
+```
+docker ps
+```
+Copy file to local directory
+```
+docker cp <containerId>:./storage/app/customers.txt ~/Downloads
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+### Option 2
+Fetch container ID
+```
+docker ps
+```
+Execute shell environment to view file
+```
+docker exec -it <containerId> sh
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+## Improvements
 
-## Contributing
+Given that this was a code test and not something being deployed to a production environment, there are some additional improvements / refactoring that I would implement if this were a task required on a production site:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- Improve Containerization
+    - given that this set up has been extremely simplified. I would have preferred to have configured docker to run all commands and install all dependencies so that `docker-compose up` was the only command required after pulling down the repo
+- Detached Front End
+    - along with the above improvements, setting up a properly functioning detached front end would be my preference. Including allowing origin access without setting the wildcard for All Access
+- File Save Service
+    - if the form was part of a larger product, and data was required to be stored, fetched, downloaded etc. from all over the application, I would set up a FileManagement service. And inject the service as a dependency in the ContactController
+- Error Logging
+    - Add more robust error logging, accessible behind some authentication
+- API Authentication
+    - configure authentication for requests made to the API to make it more secure (possibly depending on the sensitive nature or expectations of the data)
+- Captcha
+    - If this form were to exist on a corporate site, or any page that did not require authentication, I would add a captcha element to protect from digital submissions
