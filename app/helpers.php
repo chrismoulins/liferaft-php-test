@@ -4,6 +4,12 @@ use Illuminate\Support\Facades\Storage;
 
 if (! function_exists('appendToJsonFile')) 
 {
+    /**
+     * Save / Append Json data to file name provided
+     * 
+     * @param string $filename
+     * @param string $new_data
+     */
     function appendToJsonFile($filename, $new_data)
     {
         if (Storage::exists($filename)) {
