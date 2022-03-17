@@ -29,12 +29,12 @@ const Form = () => {
 
     const toastSuccess = () => toast.success("Submit Successful")
 
-    const toastError = (data) => toast.error("Submit Failed")
+    const toastError = () => toast.error("Submit Failed")
 
     const [countryHasStates, setCountryHasStates] = useState(false);
     const [countryHasProvinces, setCountryHasProvinces] = useState(false);
 
-    const { control, resetField, handleSubmit, formState:{ errors } } = useForm({
+    const { control, resetField, handleSubmit } = useForm({
         defaultValues: {
             name: '',
             email: '',

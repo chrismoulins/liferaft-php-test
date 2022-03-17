@@ -28574,7 +28574,7 @@ var Form = function Form() {
     return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.success("Submit Successful");
   };
 
-  var toastError = function toastError(data) {
+  var toastError = function toastError() {
     return react_toastify__WEBPACK_IMPORTED_MODULE_2__.toast.error("Submit Failed");
   };
 
@@ -28603,8 +28603,7 @@ var Form = function Form() {
   }),
       control = _useForm.control,
       resetField = _useForm.resetField,
-      handleSubmit = _useForm.handleSubmit,
-      errors = _useForm.formState.errors;
+      handleSubmit = _useForm.handleSubmit;
 
   var onSubmit = function onSubmit(data) {
     axios__WEBPACK_IMPORTED_MODULE_1___default().post('/contact/submit', {
