@@ -20,6 +20,7 @@ php artisan key:generate
 ```
 docker-compose up
 ```
+App is now available at `http://localhost:8000`
 
 ## Disclosure
 
@@ -42,7 +43,7 @@ docker ps
 ```
 Copy file to local directory
 ```
-docker cp <containerId>:./storage/app/customers.txt ~/Downloads
+docker cp <containerId>:/app/storage/app/customers.txt ~/Downloads
 ```
 
 
