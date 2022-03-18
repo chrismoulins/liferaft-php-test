@@ -26,8 +26,8 @@ App is now available at `http://localhost:8000`
 
 I realize that this isn't taking full advantage of a containerized environment.
 I attempted to use the repo provided at `https://gitlab.com/steve.day/liferaft-php-code-test` but ran into a lot of issues. It did not work out of the box for me.
-I was able to get the front-end to listen on http://localhost:3001 and the API server to listen on
-http://localhost:8000, but ran into CORS issues beyond that.
+I was able to get the front-end to listen on `http://localhost:3001` and the API server to listen on
+`http://localhost:8000`, but ran into CORS issues beyond that.
 
 I attempted to adjust the Allow-Access-Control-Origin, I attempted to set a proxy in package.json, and I even tried the following package: `https://www.npmjs.com/package/http-proxy-middleware` but nothing seemed to work for me.
 
